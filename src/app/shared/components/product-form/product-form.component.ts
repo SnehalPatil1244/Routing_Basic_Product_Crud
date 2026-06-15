@@ -20,7 +20,7 @@ export class ProductFormComponent implements OnInit {
     private productservice: ProductService,
     private router: Router,
     private routes: ActivatedRoute,
-    private snackbar : SnackbarService
+    private snackbar: SnackbarService
   ) { }
 
   ngOnInit(): void {
@@ -56,53 +56,53 @@ export class ProductFormComponent implements OnInit {
 
   onproductAdd() {
     let productobj = this.productForm.value;
-    if(this.productForm.invalid){
+    if (this.productForm.invalid) {
       this.productForm.markAllAsTouched()
-    }else{
-      let product : IProduct = {
-        ...this.productForm.value,pid:Date.now().toString()
+    } else {
+      let product: IProduct = {
+        ...this.productForm.value, pid: Date.now().toString()
       }
-  
-    this.productservice.createproduct(productobj)
-      .subscribe({
-        next: res => {
-          console.log(res);
-          this.productForm.reset()
-          this.snackbar.opensnackbar(res.msg)
 
-          this.router.navigate(['product'])
+      this.productservice.createproduct(product)
+        .subscribe({
+          next: res => {
+            console.log(res);
+            this.productForm.reset()
+            this.snackbar.opensnackbar(res.msg)
+
+            this.router.navigate(['product'])
 
 
-        },
-        error: err => {
-          console.log(err);
+          },
+          error: err => {
+            console.log(err);
 
-        }
-      })
+          }
+        })
+    }
   }
-}
 
-  onUpdate(){
-    if(this.productForm.invalid){
+  onUpdate() {
+    if (this.productForm.invalid) {
       this.productForm.markAllAsTouched()
-    }else{
-      let UpdatedObj : IProduct = {
-        ...this.productForm.value,pid : this.ProductId
+    } else {
+      let UpdatedObj: IProduct = {
+        ...this.productForm.value, pid: this.ProductId
       }
       this.productservice.onupdateproduct(UpdatedObj)
-      .subscribe({
-        next : res =>{
-          this.productForm.reset()
-          this.isInEditMode = false
-          this.snackbar.opensnackbar(res.msg)
-          this.router.navigate(['product'])
-        },
-        error : err => {
-          console.log(err);
-          
-        }
+        .subscribe({
+          next: res => {
+            this.productForm.reset()
+            this.isInEditMode = false
+            this.snackbar.opensnackbar(res.msg)
+            this.router.navigate(['product'])
+          },
+          error: err => {
+            console.log(err);
 
-      })
+          }
+
+        })
     }
   }
 

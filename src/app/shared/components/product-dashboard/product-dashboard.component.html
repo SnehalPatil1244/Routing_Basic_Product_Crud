@@ -5,7 +5,7 @@
 </div>
 <div class="container mt-4">
     <div class="row">
-        <div class="col-md-4 mb-4" routerLink="/product/{{pro.pid}}" *ngFor="let pro of products" trackBy : trackByFun()>
+        <div class="col-md-4 mb-4" routerLink="/product/{{pro.pid}}" *ngFor="let pro of products; trackBy : trackByFun">
             <div class="card h-100 shadow">
                 <img [src]="pro.pimage" class="card-img-top" [alt]="pro.pname"
                     style="height: 250px; object-fit: cover;">

@@ -31,7 +31,6 @@ export class ProductDashboardComponent implements OnInit {
 
   trackByFun( id : number, product : IProduct){
     return product.pid
-
   }
 
 }
