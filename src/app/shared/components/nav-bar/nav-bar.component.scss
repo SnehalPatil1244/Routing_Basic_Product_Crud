@@ -1,0 +1,50 @@
+.navbar-custom {
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  padding: 12px 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+/* Brand */
+.navbar-brand {
+  color: #00e5ff !important;
+  letter-spacing: 2px;
+  font-size: 25px;
+  text-shadow: 0 0 10px rgba(0,229,255,0.5);
+}
+
+/* Links */
+.nav-link {
+  color: #ffffff !important;
+  font-weight: 400;
+  font-size: 20px;
+  font-style: italic;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+/* Hover effect */
+.nav-hover:hover {
+  color: #00e5ff !important;
+  transform: translateY(-2px);
+}
+
+/* Underline animation */
+.nav-link::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  bottom: -3px;
+  left: 0;
+  background: #00e5ff;
+  transition: 0.3s;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Active style (optional) */
+.nav-link.active {
+  color: #00e5ff !important;
+}

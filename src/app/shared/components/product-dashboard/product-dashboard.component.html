@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="col-12 text-right mt-3">
+        <button routerLink="/product/addproduct" class="btn btn-outline-primary">Add Product</button>
+    </div>
+</div>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-4 mb-4" routerLink="/product/{{pro.pid}}" *ngFor="let pro of products" trackBy : trackByFun()>
+            <div class="card h-100 shadow">
+                <img [src]="pro.pimage" class="card-img-top" [alt]="pro.pname"
+                    style="height: 250px; object-fit: cover;">
+
+                <div class="card-body">
+                    <h5 class="card-title">{{ pro.pname }}</h5>
+                    <p class="card-text text-muted">
+                        {{ pro.pdescription }}
+                    </p>
+                    <h4 class="text-success">
+                        ₹{{ pro.pprice }}
+                    </h4>
+                    <span class="badge p-2" [ngClass]="{
+                                    'bg-warning': pro.pstatus === 'In-Progress',
+                                    'bg-primary': pro.pstatus === 'Dispatched',
+                                    'bg-success': pro.pstatus === 'Delivered'
+                                    }">
+                        {{ pro.pstatus }}
+                    </span>
+                </div>
+                <div class="card-footer text-center">
+                    <div class="d-grid gap-2">
+
+                        <button class="btn btn-outline-primary mr-3" routerLink="/product/{{pro.pid}}">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
