@@ -16,6 +16,9 @@ import { FairsComponent } from './shared/components/fairs/fairs.component';
 import { HomeComponent } from './shared/components/home/home.component';
 import { UsersComponent } from './shared/components/users/users.component';
 import { NavBarComponent } from './shared/components/nav-bar/nav-bar.component';
+import { GetConfirmationComponent } from './shared/components/get-confirmation/get-confirmation.component';
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 
 @NgModule({
@@ -27,7 +30,8 @@ import { NavBarComponent } from './shared/components/nav-bar/nav-bar.component';
     FairsComponent,
     HomeComponent,
     UsersComponent,
-    NavBarComponent
+    NavBarComponent,
+    GetConfirmationComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +41,8 @@ import { NavBarComponent } from './shared/components/nav-bar/nav-bar.component';
     MatSnackBarModule,
     MatIconModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule
     
 
   ],

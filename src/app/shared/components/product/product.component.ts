@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { IProduct } from '../../models/product';
 import { SnackbarService } from '../../services/snackbar.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { GetConfirmationComponent } from '../get-confirmation/get-confirmation.component';
 
 @Component({
   selector: 'app-product',
@@ -17,8 +19,9 @@ export class ProductComponent implements OnInit {
   constructor(
     private routes: ActivatedRoute,
     private productservice: ProductService,
-    private router : Router,
-    private snackbar : SnackbarService
+    private router: Router,
+    private snackbar: SnackbarService,
+    private matdialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -27,32 +30,47 @@ export class ProductComponent implements OnInit {
   }
 
   getproducts() {
-   // this.productId = this.routes.snapshot.params['id']
-   this.productId = this.routes.snapshot.paramMap.get('productId')!
-    if (this.productId) {
-      this.productservice.fetchproductById(this.productId)
-        .subscribe({
-          next: data => {
-            this.productobj = data
-          }
-        })
-    }
-  }
-
-  onRemove(){
-    this.productservice.removeproduct(this.productId)
-    .subscribe({
-      next : res => {
-        console.log(res);
-        this.snackbar.opensnackbar(res.msg)
-        this.router.navigate(['product'])
-        
-      },
-      error : err =>{
-        console.log(err);
-        
+    // this.productId = this.routes.snapshot.params['id']
+    //  this.productId = this.routes.snapshot.paramMap.get('productId')!
+    this.routes.params.subscribe(param => {
+      this.productId = param['productId']
+      if (this.productId) {
+        this.productservice.fetchproductById(this.productId)
+          .subscribe({
+            next: data => {
+              this.productobj = data
+            }
+          })
       }
     })
   }
 
+  onRemove() {
+    let config = new MatDialogConfig()
+    config.width = '300px'
+    config.disableClose = true
+    config.data = `Are You Sure ? You Want To Remove This Product With Id ${this.productId}`
+    let matref = this.matdialog.open(GetConfirmationComponent, config)
+    matref.afterClosed().subscribe(res => {
+      if (res) {
+        this.productservice.removeproduct(this.productId).subscribe({
+          next: res => {
+            this.snackbar.opensnackbar(res.msg)
+            this.router.navigate(['product'])
+          },
+          error: err => {
+            console.log(err);
+
+          }
+        })
+      }
+    })
+  }
+  redirectToEdit(){
+    this.router.navigate(['/product', this.productId, 'edit'],{
+      queryParamsHandling : 'preserve',
+      relativeTo : this.routes
+    })
+
+  }
 }

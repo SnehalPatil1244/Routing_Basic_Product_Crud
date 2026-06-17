@@ -57,7 +57,7 @@
                     </div>
                     <button *ngIf="!isInEditMode" type="submit" class="btn btn-sm btn-outline-primary w-100">Add
                         Product</button>
-                    <button *ngIf="isInEditMode" type="button" (click)="onUpdate()"
+                    <button *ngIf="isInEditMode" type="button" (click)="onUpdate()" [disabled]="DisableUpdatebtn"
                         class="btn btn-sm btn-outline-primary w-100">Update Product</button>
                 </form>
 

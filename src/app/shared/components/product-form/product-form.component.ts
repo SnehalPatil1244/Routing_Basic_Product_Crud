@@ -15,6 +15,7 @@ export class ProductFormComponent implements OnInit {
   isInEditMode: boolean = false
   ProductId !: string
   productobj !: IProduct
+  DisableUpdatebtn : boolean = false
 
   constructor(
     private productservice: ProductService,
@@ -26,6 +27,16 @@ export class ProductFormComponent implements OnInit {
   ngOnInit(): void {
     this.createproductform()
     this.patchproductdata()
+
+    this.routes.queryParams.subscribe(res => {
+      if(res['cr'] == 0){
+        this.productForm.disable()
+        this.DisableUpdatebtn = true
+      }else{
+        this.productForm.enable()
+        this.DisableUpdatebtn = false
+      }
+    })
 
   }
 
@@ -72,7 +83,6 @@ export class ProductFormComponent implements OnInit {
 
             this.router.navigate(['product'])
 
-
           },
           error: err => {
             console.log(err);
@@ -99,9 +109,7 @@ export class ProductFormComponent implements OnInit {
           },
           error: err => {
             console.log(err);
-
           }
-
         })
     }
   }
