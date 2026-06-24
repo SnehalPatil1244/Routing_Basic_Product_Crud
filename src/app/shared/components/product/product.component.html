@@ -26,14 +26,8 @@
             </div>
             <div class="card-footer text-center">
                 <div class="d-grid gap-2">
-
-                    <!-- <button class="btn btn-outline-success" *ngIf="product.canReturn">
-                            Return
-                        </button> -->
-
-                    <button
-                    [routerLink]="['/product', productId, 'edit']"
-                     class="btn btn-outline-warning mr-3" (click)="redirectToEdit()">
+                    <button [routerLink]="['/product', productId, 'edit']" class="btn btn-outline-warning mr-3"
+                        (click)="redirectToEdit()">
                         Edit
                     </button>
 

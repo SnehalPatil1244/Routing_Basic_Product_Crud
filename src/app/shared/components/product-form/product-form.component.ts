@@ -15,7 +15,7 @@ export class ProductFormComponent implements OnInit {
   isInEditMode: boolean = false
   ProductId !: string
   productobj !: IProduct
-  DisableUpdatebtn : boolean = false
+  DisableUpdatebtn: boolean = false
 
   constructor(
     private productservice: ProductService,
@@ -29,29 +29,14 @@ export class ProductFormComponent implements OnInit {
     this.patchproductdata()
 
     this.routes.queryParams.subscribe(res => {
-      if(res['cr'] == 0){
+      if (res['cr'] == 0) {
         this.productForm.disable()
         this.DisableUpdatebtn = true
-      }else{
+      } else {
         this.productForm.enable()
         this.DisableUpdatebtn = false
       }
     })
-
-  }
-
-  patchproductdata() {
-    this.ProductId = this.routes.snapshot.paramMap.get('productId')!
-    if (this.ProductId) {
-      this.isInEditMode = true
-      this.productservice.fetchproductById(this.ProductId)
-        .subscribe({
-          next: res => {
-            this.productForm.patchValue(res)
-
-          }
-        })
-    }
   }
 
   createproductform() {
@@ -64,6 +49,7 @@ export class ProductFormComponent implements OnInit {
       canReturn: new FormControl(1)
     })
   }
+
 
   onproductAdd() {
     let productobj = this.productForm.value;
@@ -80,7 +66,6 @@ export class ProductFormComponent implements OnInit {
             console.log(res);
             this.productForm.reset()
             this.snackbar.opensnackbar(res.msg)
-
             this.router.navigate(['product'])
 
           },
@@ -91,6 +76,21 @@ export class ProductFormComponent implements OnInit {
         })
     }
   }
+
+  patchproductdata() {
+    this.ProductId = this.routes.snapshot.paramMap.get('productId')!
+    if (this.ProductId) {
+      this.isInEditMode = true
+      this.productservice.fetchproductById(this.ProductId)
+        .subscribe({
+          next: res => {
+            this.productForm.patchValue(res)
+
+          }
+        })
+    }
+  }
+
 
   onUpdate() {
     if (this.productForm.invalid) {
@@ -113,7 +113,4 @@ export class ProductFormComponent implements OnInit {
         })
     }
   }
-
-
-
 }

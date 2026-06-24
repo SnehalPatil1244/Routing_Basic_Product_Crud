@@ -6,6 +6,8 @@ import { RouterModule, Routes } from "@angular/router";
 import { FairsComponent } from "./components/fairs/fairs.component";
 import { UsersComponent } from "./components/users/users.component";
 import { HomeComponent } from "./components/home/home.component";
+import { UserDashboardComponent } from "./components/user-dashboard/user-dashboard.component";
+import { UsersFormComponent } from "./components/users-form/users-form.component";
 
 
 
@@ -15,22 +17,35 @@ const routes: Routes = [
     //     component: ProductDashboardComponent
 
     // },
-     {
-        path : '', //http://localhost:4200  - //base url
-        component : HomeComponent
+    {
+        path: '', //http://localhost:4200  - //base url
+        component: HomeComponent
     },
     {
-        path : 'home', //http://localhost:4200/home
-        component : HomeComponent
+        path: 'home', //http://localhost:4200/home
+        component: HomeComponent
     },
     {
-        path : 'users' , //http://localhost:4200/users
-        component : UsersComponent
+        path: 'users', //http://localhost:4200/users
+        component: UserDashboardComponent
     },
-   
     {
-        path : 'fairs', //http://localhost:4200/fairs
-        component : FairsComponent
+        path: 'users/addUser',
+        component: UsersFormComponent
+    },
+    {
+        path: 'users/:userId',
+        component: UsersComponent
+    },
+    {
+        path: 'users/:userId/edit',
+        component: UsersFormComponent
+    },           
+
+
+    {
+        path: 'fairs', //http://localhost:4200/fairs
+        component: FairsComponent
 
     },
     {
@@ -54,10 +69,10 @@ const routes: Routes = [
 ]
 
 @NgModule({
-    imports : [RouterModule.forRoot(routes)],
-    exports : [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
 
-  export class AppRoutingModule{
+export class AppRoutingModule {
 
-  }
+}

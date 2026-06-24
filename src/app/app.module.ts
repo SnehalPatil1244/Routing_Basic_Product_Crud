@@ -18,6 +18,10 @@ import { UsersComponent } from './shared/components/users/users.component';
 import { NavBarComponent } from './shared/components/nav-bar/nav-bar.component';
 import { GetConfirmationComponent } from './shared/components/get-confirmation/get-confirmation.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { UsersFormComponent } from './shared/components/users-form/users-form.component';
+import { UserDashboardComponent } from './shared/components/user-dashboard/user-dashboard.component';
+import {MatChipsModule} from '@angular/material/chips';
+
 
 
 
@@ -31,7 +35,9 @@ import {MatDialogModule} from '@angular/material/dialog';
     HomeComponent,
     UsersComponent,
     NavBarComponent,
-    GetConfirmationComponent
+    GetConfirmationComponent,
+    UsersFormComponent,
+    UserDashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +48,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatIconModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatChipsModule
     
 
   ],
