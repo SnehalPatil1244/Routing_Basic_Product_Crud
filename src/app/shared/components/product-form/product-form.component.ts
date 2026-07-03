@@ -66,7 +66,9 @@ export class ProductFormComponent implements OnInit {
             console.log(res);
             this.productForm.reset()
             this.snackbar.opensnackbar(res.msg)
-            this.router.navigate(['product'])
+            this.router.navigate(['product' , product.pid],{
+          queryParams : {cr : res.data.canReturn}
+        })
 
           },
           error: err => {
@@ -105,7 +107,9 @@ export class ProductFormComponent implements OnInit {
             this.productForm.reset()
             this.isInEditMode = false
             this.snackbar.opensnackbar(res.msg)
-            this.router.navigate(['product'])
+            this.router.navigate(['product', UpdatedObj.pid],{
+          queryParams : {cr : UpdatedObj.canReturn}
+        })
           },
           error: err => {
             console.log(err);

@@ -21,6 +21,14 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { UsersFormComponent } from './shared/components/users-form/users-form.component';
 import { UserDashboardComponent } from './shared/components/user-dashboard/user-dashboard.component';
 import {MatChipsModule} from '@angular/material/chips';
+import { FairCardComponent } from './shared/components/fair-card/fair-card.component';
+import { FairDetailsComponent } from './shared/components/fair-details/fair-details.component';
+import { FairsDashBoardComponent } from './shared/components/fairs-dash-board/fairs-dash-board.component';
+import { AuthComponent } from './shared/components/auth/auth.component';
+import { HttpClientModule } from '@angular/common/http';
+import { HomepageComponent } from './shared/components/homepage/homepage.component';
+
+
 
 
 
@@ -37,7 +45,13 @@ import {MatChipsModule} from '@angular/material/chips';
     NavBarComponent,
     GetConfirmationComponent,
     UsersFormComponent,
-    UserDashboardComponent
+    UserDashboardComponent,
+    FairCardComponent,
+    FairDetailsComponent,
+    FairsDashBoardComponent,
+    AuthComponent,
+    HomepageComponent,
+  
   ],
   imports: [
     BrowserModule,
@@ -49,8 +63,8 @@ import {MatChipsModule} from '@angular/material/chips';
     AppRoutingModule,
     ReactiveFormsModule,
     MatDialogModule,
-    MatChipsModule
-    
+    MatChipsModule,
+    HttpClientModule
 
   ],
   providers: [],

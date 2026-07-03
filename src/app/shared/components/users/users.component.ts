@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Iuser } from '../../models/users';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { UsersService } from '../../services/users.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { GetConfirmationComponent } from '../get-confirmation/get-confirmation.component';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-users',
@@ -12,24 +15,52 @@ export class UsersComponent implements OnInit {
 
   userDetails !: Iuser
   userId !: string
-  constructor( private routes : ActivatedRoute,
-              private userservice : UsersService
+  constructor(private routes: ActivatedRoute,
+    private router: Router,
+    private userservice: UsersService,
+    private matdialog: MatDialog,
+    private snackbar: SnackbarService
   ) { }
 
   ngOnInit(): void {
-     this.userId = this.routes.snapshot.paramMap.get('userId')!;
-    if(this.userId){
-      this.userservice.fetchUserById(this.userId)
-      .subscribe({
-        next : data => {
-          this.userDetails = data
-        },
-        error : err =>{
-          console.log(err);
-          
-        }
-      })
-    }
+    // this.userId = this.routes.snapshot.paramMap.get('userId')!;
+    this.routes.params.subscribe(param => {
+      this.userId = param['userId']
+      if (this.userId) {
+        this.userservice.fetchUserById(this.userId)
+          .subscribe({
+            next: data => {
+              this.userDetails = data
+            },
+            error: err => {
+              console.log(err);
+
+            }
+          })
+      }
+    })
+
+  }
+  onRemoveuser() {
+    let config = new MatDialogConfig()
+    config.width = '300px'
+    config.disableClose = true
+    config.data = `Are You Sure ? You Want To Remove This Id ${this.userId}`
+    let matref = this.matdialog.open(GetConfirmationComponent, config)
+    matref.afterClosed().subscribe(res => {
+      if (res) {
+        this.userservice.onremoveuser(this.userDetails.userId)
+          .subscribe(res => {
+            this.snackbar.opensnackbar(res.msg)
+            this.userservice.fetchUsers()
+              .subscribe(res => {
+                this.router.navigate(['/users', res[0].userId])
+              })
+          })
+      }
+
+    })
+
   }
 
 }

@@ -56,7 +56,15 @@ export class ProductComponent implements OnInit {
         this.productservice.removeproduct(this.productId).subscribe({
           next: res => {
             this.snackbar.opensnackbar(res.msg)
-            this.router.navigate(['product'])
+            this.productservice.fetchproducts().subscribe({
+              next: res => {
+                console.log(res[0].pid);
+                this.router.navigate(['/product', res[0].pid], {
+                  queryParams: { cr: res[0].canReturn }
+                })
+              }
+            })
+
           },
           error: err => {
             console.log(err);
@@ -66,10 +74,10 @@ export class ProductComponent implements OnInit {
       }
     })
   }
-  redirectToEdit(){
-    this.router.navigate(['/product', this.productId, 'edit'],{
-      queryParamsHandling : 'preserve',
-      relativeTo : this.routes
+  redirectToEdit() {
+    this.router.navigate(['/product', this.productId, 'edit'], {
+      queryParamsHandling: 'preserve',
+      relativeTo: this.routes
     })
 
   }

@@ -1,0 +1,10 @@
+<div class="row mt-3">
+    <div class="col-md-4">
+        <app-fair-card 
+        *ngFor="let fair of fairsArr"
+        [fairObj]="fair"></app-fair-card>
+    </div>
+    <div class="col-md-8">
+        <router-outlet></router-outlet>
+    </div>
+</div>

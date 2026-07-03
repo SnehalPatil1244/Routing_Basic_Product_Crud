@@ -1,0 +1,61 @@
+<main class="main-auth">
+    <div class="card" style="width: 350px;">
+        <div class="card-body">
+            <ng-container *ngIf="isAllreadyHasAccount">
+                <h2 class="text-primary">Log In</h2>
+                <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+                    <div class="form-group">
+                        <label for="email" class="text-primary">Email*</label>
+                        <input type="text" formControlName="email" class="form-control">
+                        <small *ngIf="l['email'].touched && l['email'].hasError('required')">Email Has required
+                            Field....</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="text-primary">Password*</label>
+                        <input type="text" formControlName="password" class="form-control">
+                        <small *ngIf="l['password'].touched  && l['password'].hasError('required')">Password Has
+                            required Field...</small>
+                    </div>
+
+                    <button mat-raised-button color="primary" class="w-100 mb-2">Log In</button>
+                    <a (click)="isAllreadyHasAccount=true" href="javascript:;">Don't Have Account</a>
+                </form>
+            </ng-container>
+
+            <ng-container *ngIf="!isAllreadyHasAccount">
+                <h2 class="text-primary">Sign Up</h2>
+                <form [formGroup]="signupForm" (ngSubmit)="onsignup()">
+                    <div class="form-group">
+                        <label for="email">Email*</label>
+                        <input type="text" formControlName="email" class="form-control">
+                        <small *ngIf="s['email'].touched && s['email'].hasError('required')" class="text-danger">
+                            Email Has required Field...
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password*</label>
+                        <input type="text" formControlName="password" class="form-control">
+                        <small *ngIf="s['password'].touched  && s['password'].hasError('required')">Password Has
+                            required Field...</small>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userRole">User Role*</label>
+                        <select type="text" formControlName="userRole" class="form-control">
+                            <option value="buyer">Buyer</option>
+                            <option value="admin">Admin</option>
+                            <option value="superAdmin">Super Admin</option>
+                        </select>
+                        <small *ngIf="s['userRole'].touched  && s['userRole'].hasError('required')"> UserRole Has
+                            required Field...</small>
+                    </div>
+
+                    <button mat-raised-button color="primary" class="w-100 mb-2">Sing Up</button>
+                    <a href="javascript:;" (click)="isAllreadyHasAccount=true">Already Has An Account</a>
+                </form>
+            </ng-container>
+        </div>
+    </div>
+
+</main>

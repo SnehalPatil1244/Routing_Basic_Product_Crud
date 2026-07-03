@@ -51,6 +51,9 @@ export class UsersFormComponent implements OnInit {
           let CurrentAdd = this.formcontrols['address'].get('current')?.value;
           this.formcontrols['address'].get('permanent')?.patchValue(CurrentAdd)
           this.formcontrols['address'].get('permanent')?.disable()
+        } else if (this.isInEditMode && !val) {
+          this.formcontrols['address'].get('permanent')?.patchValue(this.edituser.address.permanent)
+          this.formcontrols['address'].get('permanent')?.enable()
         }
         else {
           this.formcontrols['address'].get('permanent')?.reset()
@@ -109,7 +112,7 @@ export class UsersFormComponent implements OnInit {
         .subscribe({
           next: res => {
             this.snackbar.opensnackbar(res.msg)
-            this.router.navigate(['/users'])
+            this.router.navigate(['/users', res.data.userId])
           },
           error: err => {
             this.snackbar.opensnackbar(err.msg)
@@ -124,10 +127,37 @@ export class UsersFormComponent implements OnInit {
       this.userservice.fetchUserById(this.userId).subscribe({
         next: res => {
           this.edituser = res
+          this.isInEditMode = true
           this.userForm.patchValue(this.edituser)
-
+          if (res.userRole === 'Candidate') {
+            this.userForm.disable()
+          }
+          this.skillsArr.clear()
+          this.edituser.skills.forEach(ele => {
+            let control = new FormControl(ele)
+            this.skillsArr.push(control)
+          })
         }
       })
+    }
+  }
+
+  onupdate() {
+    if (this.userForm.invalid) {
+      this.userForm.markAllAsTouched()
+    } else {
+      let Userdetails = { ...this.userForm.getRawValue(), userId: this.userId }
+      this.userservice.onupdateuser(Userdetails)
+        .subscribe({
+          next: res => {
+            this.snackbar.opensnackbar(res.msg)
+            this.router.navigate(['/users', res.data.userId])
+          },
+          error: err => {
+            this.snackbar.opensnackbar(err.msg)
+          }
+        })
+
     }
   }
 

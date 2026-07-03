@@ -9,27 +9,27 @@ import { Router } from '@angular/router';
   styleUrls: ['./product-dashboard.component.scss']
 })
 export class ProductDashboardComponent implements OnInit {
-  products : Array<IProduct> = []
+  products: Array<IProduct> = []
 
-  constructor( 
-    private productservice : ProductService,
-    private router : Router
+  constructor(
+    private productservice: ProductService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.productservice.fetchproducts()
-    .subscribe({
-      next : data =>{
-        this.products = data
-      },
-      error : err => {
-        console.log(err);
-        
-      }
-    })
+      .subscribe({
+        next: data => {
+          this.products = data
+        },
+        error: err => {
+          console.log(err);
+
+        }
+      })
   }
 
-  trackByFun( id : number, product : IProduct){
+  trackByFun(id: number, product: IProduct) {
     return product.pid
   }
 

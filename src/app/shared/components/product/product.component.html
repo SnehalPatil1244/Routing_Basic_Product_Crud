@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-4 mb-4 offset-md-4">
+    <div class="col-md-8 mb-4 offset-md-2">
         <div class="card h-100 shadow" *ngIf="productId">
             <img [src]="productobj.pimage" class="card-img-top" [alt]="productobj.pname"
                 style="height: 250px; object-fit: cover;">
@@ -10,7 +10,7 @@
                     {{ productobj.pdescription }}
                 </p>
                 <h4 class="text-success">
-                    ₹{{ productobj.pprice }}
+                   {{ productobj.pprice }}
                 </h4>
                 <p>
                     <strong>Product ID:</strong>
@@ -26,7 +26,7 @@
             </div>
             <div class="card-footer text-center">
                 <div class="d-grid gap-2">
-                    <button [routerLink]="['/product', productId, 'edit']" class="btn btn-outline-warning mr-3"
+                    <button [routerLink]="['/products', productId, 'edit']" class="btn btn-outline-warning mr-3"
                         (click)="redirectToEdit()">
                         Edit
                     </button>
