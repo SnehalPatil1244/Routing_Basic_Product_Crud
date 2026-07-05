@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  authBaseUrl : 'https://auth-git-main-iamrks-projects.vercel.app'
+  authBaseUrl : 'https://auth-git-main-iamrkjs-projects.vercel.app'
 };
