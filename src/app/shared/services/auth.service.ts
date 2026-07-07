@@ -30,11 +30,11 @@ export class AuthService {
     localStorage.setItem('userRole', userRole)
   }
 
-  getToken() {
-    localStorage.getItem('token')
+  getToken() : string | null{
+    return localStorage.getItem('token');
   }
-  getUserRole() {
-    localStorage.getItem('userRole')
+  getUserRole() : string | null {
+     return localStorage.getItem('userRole')
   }
 
   LogOut() {

@@ -11,6 +11,10 @@ import { FairsDashBoardComponent } from "./components/fairs-dash-board/fairs-das
 import { FairDetailsComponent } from "./components/fair-details/fair-details.component";
 import { AuthComponent } from "./components/auth/auth.component";
 import { HomepageComponent } from "./components/homepage/homepage.component";
+import { authGuard } from "./services/auth.Guard";
+import { PageNotFoundComponent } from "./components/page-not-found/page-not-found.component";
+import { userRoleGuard } from "./services/userRole.Guard";
+import { canDeactivateComponent } from "./services/can-Deactivate.Guard";
 
 
 
@@ -22,23 +26,39 @@ const routes: Routes = [
     },
     {
         path: 'home', //http://localhost:4200/home
-        component: HomepageComponent
+        component: HomepageComponent,
+        title: 'Home',
+        canActivate: [authGuard, userRoleGuard],
+        data: {
+            userRole: ['buyer', 'admin', 'superAdmin']
+        }
     },
     {
         path: 'users', //http://localhost:4200/users
         component: UserDashboardComponent,
+        title: 'Users',
+        canActivate: [authGuard, userRoleGuard],
+
+        data: {
+            userRole: ['admin', 'superAdmin']
+        },
         children: [
             {
                 path: 'addUser',
-                component: UsersFormComponent
+                component: UsersFormComponent,
+
+
             },
             {
                 path: ':userId',
-                component: UsersComponent
+                component: UsersComponent,
+                canDeactivate: [canDeactivateComponent]
             },
             {
                 path: ':userId/edit',
-                component: UsersFormComponent
+                component: UsersFormComponent,
+                canDeactivate: [canDeactivateComponent],
+
             },
         ]
     },
@@ -46,11 +66,17 @@ const routes: Routes = [
     {
         path: 'product', //base_url/product
         component: ProductDashboardComponent,
+        title: 'Products',
+        canActivate: [authGuard, userRoleGuard],
+        data: {
+            userRole: ['buyer', 'admin', 'superAdmin']
+        },
 
         children: [
             {
                 path: 'addproduct',//base_url/product/addproduct
-                component: ProductFormComponent
+                component: ProductFormComponent,
+
             },
 
             {
@@ -59,13 +85,19 @@ const routes: Routes = [
             },
             {
                 path: ':productId/edit',//base_url/product
-                component: ProductFormComponent
+                component: ProductFormComponent,
+                canDeactivate: [canDeactivateComponent]
             }
         ]
     },
     {
         path: 'fairs', //http://localhost:4200/fairs
         component: FairsDashBoardComponent,
+        title: 'fairs',
+        canActivate: [authGuard, userRoleGuard],
+        data: {
+            userRole: ['superAdmin']
+        },
         children: [
             {
                 path: ':fairsId',
@@ -75,6 +107,18 @@ const routes: Routes = [
         ]
 
     },
+
+    {
+        path: 'page-not-found',
+        component: PageNotFoundComponent,
+        data: {
+            msg: `Path Is Not Found  Using Static Data !!`
+        }
+    },
+    {
+        path: '**',
+        redirectTo: 'page-not-found'
+    }
 
 ]
 

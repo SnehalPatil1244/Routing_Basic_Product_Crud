@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarService } from '../../services/snackbar.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Iuser } from '../../models/users';
+import { config } from 'rxjs';
 
 @Component({
   selector: 'app-users-form',
@@ -151,14 +152,25 @@ export class UsersFormComponent implements OnInit {
         .subscribe({
           next: res => {
             this.snackbar.opensnackbar(res.msg)
+            this.userForm.reset()
+            this.isInEditMode = false
+
             this.router.navigate(['/users', res.data.userId])
           },
           error: err => {
             this.snackbar.opensnackbar(err.msg)
           }
         })
-
     }
   }
+
+  canDeactivate() : boolean {
+    if(this.userForm.dirty && this.isInEditMode){
+      return confirm(`Are You Sure You Want Discard The Changes !!`)
+    }
+    return true
+  }
+
+ 
 
 }

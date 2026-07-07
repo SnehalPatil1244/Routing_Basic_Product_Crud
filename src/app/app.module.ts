@@ -27,6 +27,7 @@ import { FairsDashBoardComponent } from './shared/components/fairs-dash-board/fa
 import { AuthComponent } from './shared/components/auth/auth.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HomepageComponent } from './shared/components/homepage/homepage.component';
+import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { HomepageComponent } from './shared/components/homepage/homepage.compone
     FairsDashBoardComponent,
     AuthComponent,
     HomepageComponent,
+    PageNotFoundComponent,
   
   ],
   imports: [
