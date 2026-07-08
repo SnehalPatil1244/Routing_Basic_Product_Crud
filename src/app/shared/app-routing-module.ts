@@ -52,13 +52,12 @@ const routes: Routes = [
             {
                 path: ':userId',
                 component: UsersComponent,
-                canDeactivate: [canDeactivateComponent]
+          
             },
             {
                 path: ':userId/edit',
                 component: UsersFormComponent,
                 canDeactivate: [canDeactivateComponent],
-
             },
         ]
     },
