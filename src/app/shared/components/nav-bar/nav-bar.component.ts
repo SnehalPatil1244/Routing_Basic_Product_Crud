@@ -11,6 +11,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent implements OnInit {
+  userRole !: string
 
   constructor(
     private productservice: ProductService,
@@ -21,6 +22,7 @@ export class NavBarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.userRole = this.authservice.getUserRole()!
   }
 
 

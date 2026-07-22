@@ -16,6 +16,7 @@ export class UsersFormComponent implements OnInit {
   isInEditMode: boolean = false
   userForm !: FormGroup
   edituser !: Iuser
+  userrole!: string;
   userId !: string
 
   constructor(private userservice: UsersService,
@@ -24,7 +25,7 @@ export class UsersFormComponent implements OnInit {
     private routes: ActivatedRoute
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     this.createUserForm()
     this.addSkillsControl()
     this.isPermenantAddHandler()
@@ -135,7 +136,10 @@ export class UsersFormComponent implements OnInit {
           }
           this.skillsArr.clear()
           this.edituser.skills.forEach(ele => {
-            let control = new FormControl(ele)
+            let control = new FormControl({
+              value : ele,
+              disabled : res.userRole === 'Candidate'
+            })
             this.skillsArr.push(control)
           })
         }
@@ -148,7 +152,7 @@ export class UsersFormComponent implements OnInit {
       this.userForm.markAllAsTouched()
     } else {
       let Userdetails = { ...this.userForm.getRawValue(), userId: this.userId }
-      this.userservice.onupdateuser(Userdetails)
+      this.userservice.onupdateuser(Userdetails) 
         .subscribe({
           next: res => {
             this.snackbar.opensnackbar(res.msg)
@@ -163,14 +167,15 @@ export class UsersFormComponent implements OnInit {
         })
     }
   }
+  onskillsremove(i: number) {
+    this.skillsArr.removeAt(i)
+  }
 
-  canDeactivate() : boolean {
-    if(this.userForm.dirty && this.isInEditMode){
+  canDeactivate(): boolean {
+    if (this.userForm.dirty && this.isInEditMode) {
       return confirm(`Are You Sure You Want Discard The Changes !!`)
     }
     return true
   }
-
- 
 
 }

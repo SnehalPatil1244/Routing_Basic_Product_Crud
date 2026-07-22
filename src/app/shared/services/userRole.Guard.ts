@@ -14,4 +14,4 @@ export class userRoleGuard implements CanActivate {
         return userRoleArr.includes(looggedinuser)
     }
 
-}
+} 

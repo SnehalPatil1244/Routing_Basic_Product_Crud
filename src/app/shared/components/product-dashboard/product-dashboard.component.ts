@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { IProduct } from '../../models/product';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-dashboard',
@@ -13,20 +13,23 @@ export class ProductDashboardComponent implements OnInit {
 
   constructor(
     private productservice: ProductService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private Routes: ActivatedRoute
+  ) {
+    this.products = this.Routes.snapshot.data['products']
+  }
 
   ngOnInit(): void {
-    this.productservice.fetchproducts()
-      .subscribe({
-        next: data => {
-          this.products = data
-        },
-        error: err => {
-          console.log(err);
+    // this.productservice.fetchproducts()
+    // .subscribe({
+    //   next: data => {
+    //     this.products = data
+    //   },
+    //   error: err => {
+    //     console.log(err);
 
-        }
-      })
+    //   }
+    // })
   }
 
   trackByFun(id: number, product: IProduct) {

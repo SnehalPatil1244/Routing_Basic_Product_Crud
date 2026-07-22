@@ -15,7 +15,8 @@ import { authGuard } from "./services/auth.Guard";
 import { PageNotFoundComponent } from "./components/page-not-found/page-not-found.component";
 import { userRoleGuard } from "./services/userRole.Guard";
 import { canDeactivateComponent } from "./services/can-Deactivate.Guard";
-
+import { ProductResolver } from "./services/product.resolver";
+import { NewProductResolver } from "./services/new-product.resolver";
 
 
 const routes: Routes = [
@@ -52,7 +53,7 @@ const routes: Routes = [
             {
                 path: ':userId',
                 component: UsersComponent,
-          
+
             },
             {
                 path: ':userId/edit',
@@ -66,6 +67,9 @@ const routes: Routes = [
         path: 'product', //base_url/product
         component: ProductDashboardComponent,
         title: 'Products',
+        resolve: {
+            products: NewProductResolver
+        },
         canActivate: [authGuard, userRoleGuard],
         data: {
             userRole: ['buyer', 'admin', 'superAdmin']
@@ -80,7 +84,10 @@ const routes: Routes = [
 
             {
                 path: ':productId',//base_url/123
-                component: ProductComponent
+                component: ProductComponent,
+                resolve: {
+                    product: NewProductResolver
+                },
             },
             {
                 path: ':productId/edit',//base_url/product

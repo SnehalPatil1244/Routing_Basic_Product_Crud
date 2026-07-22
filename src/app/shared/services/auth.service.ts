@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ILogin, ISingIn } from '../models/auth';
 
@@ -10,6 +10,7 @@ import { ILogin, ISingIn } from '../models/auth';
 export class AuthService {
 
   auth_Base_Url: string = environment.authBaseUrl
+  isLoginSub$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
 
   constructor(private _http: HttpClient) { }
 
@@ -30,11 +31,11 @@ export class AuthService {
     localStorage.setItem('userRole', userRole)
   }
 
-  getToken() : string | null{
+  getToken(): string | null {
     return localStorage.getItem('token');
   }
-  getUserRole() : string | null {
-     return localStorage.getItem('userRole')
+  getUserRole(): string | null {
+    return localStorage.getItem('userRole')
   }
 
   LogOut() {

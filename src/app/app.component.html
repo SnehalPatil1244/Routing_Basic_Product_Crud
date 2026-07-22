@@ -1,4 +1,4 @@
- <app-nav-bar></app-nav-bar>
+ <app-nav-bar *ngIf="isLogedIn"></app-nav-bar>
  <div class="container-fluid">
 
       <router-outlet></router-outlet>

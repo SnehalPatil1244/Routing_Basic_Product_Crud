@@ -22,27 +22,33 @@ export class ProductComponent implements OnInit {
     private router: Router,
     private snackbar: SnackbarService,
     private matdialog: MatDialog
-  ) { }
+  ) 
+  {this.routes.data
+    .subscribe(res => {
+      this.productobj = res['product']
+      this.productId = res['product'].pid
+    })
+   }
 
   ngOnInit(): void {
-    this.getproducts()
+    // this.getproducts()
 
   }
 
   getproducts() {
     // this.productId = this.routes.snapshot.params['id']
     //  this.productId = this.routes.snapshot.paramMap.get('productId')!
-    this.routes.params.subscribe(param => {
-      this.productId = param['productId']
-      if (this.productId) {
-        this.productservice.fetchproductById(this.productId)
-          .subscribe({
-            next: data => {
-              this.productobj = data
-            }
-          })
-      }
-    })
+    // this.routes.params.subscribe(param => {
+    //   this.productId = param['productId']
+    //   if (this.productId) {
+    //     this.productservice.fetchproductById(this.productId)
+    //       .subscribe({
+    //         next: data => {
+    //           this.productobj = data
+    //         }
+    //       })
+    //   }
+    // })
   }
 
   onRemove() {
