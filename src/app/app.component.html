@@ -1,6 +1,9 @@
  <app-nav-bar *ngIf="isLogedIn"></app-nav-bar>
  <div class="container-fluid">
-
       <router-outlet></router-outlet>
+    </div>
+
+    <div class="spinner" *ngIf="isLoading">
+      <mat-spinner></mat-spinner>
     </div>
  

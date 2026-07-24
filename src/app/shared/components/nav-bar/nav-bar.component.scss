@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 
@@ -55,5 +55,18 @@
 }
 
 .navbar-menu li a:hover::after {
+  width: 100%;
+}
+
+.active-link {
+  color: #00e5ff !important;
+  font-weight: bold;
+}
+
+.active-link::after {
+  width: 100% !important;
+}
+
+.navbar-menu li a.active-link::after {
   width: 100%;
 }
